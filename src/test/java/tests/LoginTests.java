@@ -7,11 +7,12 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import screens.AuthScreen;
 import screens.ContactListScreen;
-import screens.SplashScreen;
 
 public class LoginTests extends AppiumConfig {
+
+
     @Test
-    public void loginSuccess(){
+    public void loginSuccess() {
 //        boolean result = new SplashScreen(driver)
 //                .checkCurrentVersion("Version 1.0.0")
         boolean result = new AuthScreen(driver)
@@ -23,8 +24,9 @@ public class LoginTests extends AppiumConfig {
     }
 
     @Test
-    public void loginSuccessModel(){
-
+    public void loginSuccessModel() {
+//        boolean result = new SplashScreen(driver)
+//                .checkCurrentVersion("Version 1.0.0")
         boolean result = new AuthScreen(driver)
                 .fillLoginRegistrationForm(Auth.builder()
                         .email("testolga@gmail.com").password("Test1101!")
@@ -34,7 +36,6 @@ public class LoginTests extends AppiumConfig {
         Assert.assertTrue(result);
     }
 
-    @Test
     public void loginSuccessModel2(){
         Assert.assertTrue(new AuthScreen(driver)
                 .fillLoginRegistrationForm(Auth.builder()
@@ -58,24 +59,24 @@ public class LoginTests extends AppiumConfig {
     public void loginWrongPassword(){
         new AuthScreen(driver)
                 .fillLoginRegistrationForm(Auth.builder()
-                        .email("testolga@gmail.com").password("Test1101")
+                        .email("testolga@gmail.com").password("Mmar123")
                         .build())
                 .submitLoginNegative()
                 .isErrorMessageContainsText("Login or Password incorrect");
     }
 
     @Test
-    public void loginWrongUnregisteredUser(){
+    public void loginUnregisteredUser(){
         new AuthScreen(driver)
                 .fillLoginRegistrationForm(Auth.builder()
-                        .email("blabla@gmail.com").password("Test1101!")
+                        .email("till1@gmail.com").password("Ttill123456$")
                         .build())
                 .submitLoginNegative()
                 .isErrorMessageContainsText("Login or Password incorrect");
     }
 
     @AfterMethod
-    public void postCondition(){
+    public void postCondition() {
         new ContactListScreen(driver).logout();
     }
 }

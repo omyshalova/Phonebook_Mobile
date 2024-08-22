@@ -28,7 +28,15 @@ public class BaseScreen {
         return new WebDriverWait(driver,time).until(ExpectedConditions.textToBePresentInElement(element,text));
     }
 
+    public void pause(int time){
+        try {
+            Thread.sleep(time);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void shold(AndroidElement element, int time){
-        new WebDriverWait(driver, time).until(ExpectedConditions.visibilityOf(element));
+        new WebDriverWait(driver,time).until(ExpectedConditions.visibilityOf(element));
     }
 }

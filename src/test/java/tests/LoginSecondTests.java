@@ -9,14 +9,15 @@ import screens.AuthScreen;
 public class LoginSecondTests extends AppiumConfig {
 
     @Test
-    public void loginSuccess(){
+    public void loginSuccess() {
         new AuthScreen(driver)
                 .fillEmail("testolga@gmail.com")
                 .fillPassword("Test1101!")
                 .submitLogin()
-                .isAccountOpen()
+                .isAccountOpened()
                 .logout();
     }
+
 
     @Test
     public void loginSuccessModel(){
@@ -25,9 +26,10 @@ public class LoginSecondTests extends AppiumConfig {
                         .email("testolga@gmail.com").password("Test1101!")
                         .build())
                 .submitLogin()
-                .isAccountOpen()
+                .isAccountOpened()
                 .logout();
     }
+
 
     @Test
     public void loginWrongEmail(){
@@ -39,6 +41,9 @@ public class LoginSecondTests extends AppiumConfig {
                 .isErrorMessageContainsText("Login or Password incorrect");
 
     }
+
+
+
 
 
 }

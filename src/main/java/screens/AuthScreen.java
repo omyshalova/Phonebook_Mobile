@@ -8,6 +8,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.testng.IRetryAnalyzer;
 
 public class AuthScreen extends BaseScreen {
     public AuthScreen(AppiumDriver<AndroidElement> driver) {
@@ -17,11 +18,14 @@ public class AuthScreen extends BaseScreen {
     @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/inputEmail']")
     AndroidElement emailEditText;
 
-    @FindBy(id = "com.sheygam.contactapp:id/inputPassword")
+    @FindBy(id="com.sheygam.contactapp:id/inputPassword")
     AndroidElement passwordEditText;
 
     @FindBy(xpath = "//*[@text='LOGIN']")
     AndroidElement loginBtn;
+
+    @FindBy(xpath = "//*[@text='REGISTRATION']")
+    AndroidElement registrationBtn;
 
 
     public AuthScreen fillEmail(String email) {
@@ -41,16 +45,8 @@ public class AuthScreen extends BaseScreen {
         return new ContactListScreen(driver);
     }
 
-    public void pause(int time){
-        try {
-            Thread.sleep(time);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public AuthScreen fillLoginRegistrationForm(Auth auth) {
-        shold(emailEditText, 10);
+    public AuthScreen fillLoginRegistrationForm(Auth auth){
+        shold(emailEditText,10);
         type(emailEditText, auth.getEmail());
         type(passwordEditText, auth.getPassword());
         return this;
@@ -62,10 +58,21 @@ public class AuthScreen extends BaseScreen {
     }
 
     public AuthScreen isErrorMessageContainsText(String text) {
-        Alert alert = new WebDriverWait(driver, 10).until(ExpectedConditions.alertIsPresent());
+        Alert alert =new WebDriverWait(driver,10)
+                .until(ExpectedConditions.alertIsPresent());
         driver.switchTo().alert();
         Assert.assertTrue(alert.getText().contains(text));
         alert.accept();
+        return this;
+    }
+
+    public ContactListScreen submitRegistration() {
+        registrationBtn.click();
+        return new ContactListScreen(driver);
+    }
+
+    public AuthScreen submitRegistrationNegative() {
+        registrationBtn.click();
         return this;
     }
 }

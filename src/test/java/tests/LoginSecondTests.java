@@ -22,9 +22,7 @@ public class LoginSecondTests extends AppiumConfig {
     @Test
     public void loginSuccessModel(){
         new AuthScreen(driver)
-                .fillLoginRegistrationForm(Auth.builder()
-                        .email("testolga@gmail.com").password("Test1101!")
-                        .build())
+                .fillLoginRegistrationForm(Auth.builder().email("testolga@gmail.com").password("Test1101!").build())
                 .submitLogin()
                 .isAccountOpened()
                 .logout();
@@ -34,9 +32,7 @@ public class LoginSecondTests extends AppiumConfig {
     @Test
     public void loginWrongEmail(){
         new AuthScreen(driver)
-                .fillLoginRegistrationForm(Auth.builder()
-                        .email("testolgagmail.com").password("Test1101!")
-                        .build())
+                .fillLoginRegistrationForm(Auth.builder().email("testolgagmail.com").password("Test1101!").build())
                 .submitLoginNegative()
                 .isErrorMessageContainsText("Login or Password incorrect");
 

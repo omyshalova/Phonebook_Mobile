@@ -18,19 +18,18 @@ public class AuthScreen extends BaseScreen {
     @FindBy(xpath = "//*[@resource-id='com.sheygam.contactapp:id/inputEmail']")
     AndroidElement emailEditText;
 
-    @FindBy(id="com.sheygam.contactapp:id/inputPassword")
+    @FindBy(id = "com.sheygam.contactapp:id/inputPassword")
     AndroidElement passwordEditText;
 
     @FindBy(xpath = "//*[@text='LOGIN']")
     AndroidElement loginBtn;
 
-    @FindBy(xpath = "//*[@text='REGISTRATION']")
+    @FindBy(id = "com.sheygam.contactapp:id/regBtn")
     AndroidElement registrationBtn;
-
 
     public AuthScreen fillEmail(String email) {
         //pause(4000);
-        shold(emailEditText,10);
+        should(emailEditText, 10);
         type(emailEditText, email);
         return this;
     }
@@ -45,11 +44,12 @@ public class AuthScreen extends BaseScreen {
         return new ContactListScreen(driver);
     }
 
-    public AuthScreen fillLoginRegistrationForm(Auth auth){
-        shold(emailEditText,10);
+    public AuthScreen fillLoginRegistrationForm(Auth auth) {
+        should(emailEditText, 10);
         type(emailEditText, auth.getEmail());
         type(passwordEditText, auth.getPassword());
         return this;
+
     }
 
     public AuthScreen submitLoginNegative() {
@@ -58,13 +58,10 @@ public class AuthScreen extends BaseScreen {
     }
 
     public AuthScreen isErrorMessageContainsText(String text) {
-        Alert alert =new WebDriverWait(driver,10)
-                .until(ExpectedConditions.alertIsPresent());
-        driver.switchTo().alert();
-        Assert.assertTrue(alert.getText().contains(text));
-        alert.accept();
+        checkAlertText(text);
         return this;
     }
+
 
     public ContactListScreen submitRegistration() {
         registrationBtn.click();
@@ -75,4 +72,5 @@ public class AuthScreen extends BaseScreen {
         registrationBtn.click();
         return this;
     }
+
 }
